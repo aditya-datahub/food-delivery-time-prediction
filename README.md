@@ -1,6 +1,6 @@
 # 🍔 Food Delivery Time Prediction
 
-Predicting food delivery time using regression models, with exploratory data analysis on 1,000 orders to understand what actually drives delivery delays.
+Predicting how long a food delivery will take, using regression models trained on 1,000 real order records — with a full exploratory analysis of what actually causes delays.
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![scikit--learn](https://img.shields.io/badge/scikit--learn-ML-orange)
@@ -8,77 +8,78 @@ Predicting food delivery time using regression models, with exploratory data ana
 
 ---
 
-## 📌 Objective
+## 📖 Overview
 
-Understand what factors affect food delivery time and build a regression model that predicts delivery time (in minutes) for a new order, based on features like distance, weather, traffic, vehicle type, and courier experience.
+Food delivery apps need to give customers an accurate ETA. This project explores a real-world-style delivery dataset to answer two questions:
+
+1. **What factors actually slow deliveries down?** (distance, traffic, weather, courier experience, etc.)
+2. **Can we predict delivery time in minutes, given an order's details?**
+
+The notebook walks through the full pipeline — cleaning the data, exploring it visually, and training/comparing two regression models to make that prediction.
 
 ## 📂 Dataset
 
-| Detail       | Info                                                              |
-|--------------|--------------------------------------------------------------------|
-| Source       | `Food_Delivery_Times.csv`                                          |
-| Rows         | 1,000 orders                                                        |
-| Target       | `Delivery_Time_min`                                                  |
-| Features     | Distance, Weather, Traffic, Vehicle, Preparation Time, Experience   |
-| Task         | Regression (predict delivery time in minutes)                       |
+| Detail    | Info                                                               |
+|-----------|---------------------------------------------------------------------|
+| File      | `Food_Delivery_Times.csv`                                            |
+| Size      | 1,000 orders                                                          |
+| Target    | `Delivery_Time_min` — total delivery time in minutes                   |
+| Features  | Distance, Weather, Traffic Level, Vehicle Type, Preparation Time, Courier Experience |
 
-## 🔍 Approach
+## 🔍 Workflow
 
-1. **Data Cleaning** — handled missing values, removed duplicates, dropped non-informative columns (`Order_ID`)
-2. **Exploratory Data Analysis** — distribution of delivery times, feature relationships, correlation heatmap
-3. **Encoding** — categorical variables converted using `LabelEncoder`
-4. **Modeling** — trained and compared two regression models:
-   - Linear Regression
-   - Random Forest Regressor
-5. **Evaluation** — compared models using MAE, RMSE, and R²
-6. **Feature Importance** — identified which features most influence delivery time
+| Step                          | What happens                                                                 |
+|--------------------------------|-------------------------------------------------------------------------------|
+| 1. Data Cleaning                | Handle missing values, remove duplicates, drop the non-predictive `Order_ID` column |
+| 2. Exploratory Data Analysis    | Visualize the distribution of delivery times and how each feature relates to it, plus a correlation heatmap |
+| 3. Encoding                     | Convert categorical columns (Weather, Traffic, Vehicle) into numbers using `LabelEncoder` |
+| 4. Model Training                | Train a **Linear Regression** model and a **Random Forest Regressor**, using an 80/20 train-test split |
+| 5. Evaluation                    | Compare both models on MAE, RMSE, and R² |
+| 6. Feature Importance            | Use the Random Forest model to rank which features matter most |
 
 ## 📊 Results
 
-| Model              | MAE  | RMSE  | R²    |
-|---------------------|------|-------|-------|
-| Linear Regression    | 7.29 | 10.45 | 0.756 |
-| **Random Forest**    | **7.06** | **10.01** | **0.777** |
+| Model                | MAE      | RMSE      | R²        |
+|------------------------|----------|-----------|-----------|
+| Linear Regression        | 7.29     | 10.45     | 0.756     |
+| **Random Forest**        | **7.06** | **10.01** | **0.777** |
 
-**Random Forest** outperformed Linear Regression across all metrics. Feature importance analysis showed that **Distance** and **Preparation Time** are the strongest predictors of delivery time.
+**Random Forest wins** on every metric. Its feature importance ranking also shows that **Distance** and **Preparation Time** are by far the biggest drivers of delivery time — more than traffic or weather.
 
 ## 🛠️ Tech Stack
 
-- Python
-- pandas, numpy
-- matplotlib, seaborn
-- scikit-learn
+`Python` · `pandas` · `numpy` · `matplotlib` · `seaborn` · `scikit-learn` · `Jupyter Notebook`
 
-## 🚀 How to Run
+## 🚀 Running it locally
 
 ```bash
-# Clone the repo
+# 1. Clone the repo
 git clone https://github.com/aditya-datahub/food-delivery-time-prediction.git
 cd food-delivery-time-prediction
 
-# Install dependencies
-pip install pandas numpy matplotlib seaborn scikit-learn
+# 2. Install the dependencies
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 
-# Launch the notebook
+# 3. Open the notebook
 jupyter notebook delivery_time_prediction.ipynb
 ```
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 food-delivery-time-prediction/
-├── delivery_time_prediction.ipynb   # Full analysis & modeling notebook
-├── Food_Delivery_Times.csv          # Raw dataset
+├── delivery_time_prediction.ipynb   # Cleaning, EDA, modeling, evaluation — all in one notebook
+├── Food_Delivery_Times.csv          # Raw dataset used in the notebook
 ├── LICENSE
 └── README.md
 ```
 
-## 📈 Future Improvements
+## 📈 Possible Next Steps
 
-- Hyperparameter tuning (GridSearchCV) for Random Forest
-- Try gradient boosting models (XGBoost, LightGBM)
-- Deploy as a simple API/web app for live predictions
+- Tune the Random Forest with `GridSearchCV` to squeeze out a better R²
+- Try gradient-boosted models like XGBoost or LightGBM for comparison
+- Wrap the trained model in a simple API so it can return live predictions
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+Released under the [MIT License](LICENSE).
